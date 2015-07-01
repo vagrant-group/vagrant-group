@@ -1,5 +1,7 @@
 # Vagrant Group Plugin
 
+[![Gem Version](https://badge.fury.io/rb/vagrant-group.svg)](http://badge.fury.io/rb/vagrant-group)
+
 With this plugin you can associate VMs to groups and then perform
 basic operations like up/halt/provision/destroy on specific group.
 
