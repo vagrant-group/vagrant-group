@@ -5,6 +5,48 @@
 With this plugin you can associate VMs to groups and then perform
 basic operations like up/halt/provision/destroy on specific group.
 
+## How to install
+
+```sh
+vagrant plugin install vagrant-group
+```
+
+## How to configure
+
+```ruby
+Vagrant.configure("2") do |config|
+  config.vm.define "web1" do |web|
+    web.vm.box = "apache"
+  end
+
+  config.vm.define "web2" do |web|
+    web.vm.box = "apache"
+  end
+
+  config.vm.define "db1" do |db|
+    db.vm.box = "mysql"
+  end
+
+  config.vm.define "db2" do |db|
+    db.vm.box = "mysql"
+  end
+
+  config.group.groups = {
+    "webservers" => [ "web1", "web2" ],
+    "databases"  => [ "db1", "db2" ]
+  }
+end
+```
+
+## How to use
+
+```sh
+$ vagrant group webservers up
+$ vagrant group databases halt
+```
+
+At the moment you use commands 'up', 'halt', 'provision' and 'destroy'.
+
 ## Contributing
 
 1. Fork it ( https://github.com/krzysztof-magosa/vagrant-group/fork )
