@@ -4,6 +4,7 @@
 
 With this plugin you can associate VMs to groups and then perform
 basic operations like up/halt/provision/destroy on specific group.
+One host may belong to multiple groups.
 
 ## How to install
 
@@ -45,7 +46,8 @@ $ vagrant group webservers up
 $ vagrant group databases halt
 ```
 
-At the moment you use commands 'up', 'halt', 'provision' and 'destroy'.
+At the moment you use commands `up`, `halt`, `provision` and `destroy`.  
+Parameters are not supported.
 
 ## Contributing
 
