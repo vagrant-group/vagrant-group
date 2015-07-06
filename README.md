@@ -49,6 +49,11 @@ $ vagrant group databases halt
 At the moment you use commands `up`, `halt`, `provision` and `destroy`.  
 Parameters are not supported.
 
+In order to list hosts associated to group issue below command:
+```
+$ vagrant group webservers hosts
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/krzysztof-magosa/vagrant-group/fork )

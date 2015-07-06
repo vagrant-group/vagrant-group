@@ -9,7 +9,7 @@ module VagrantPlugins
       def execute
         options = {}
         opts = OptionParser.new do |o|
-          o.banner = 'Usage: vagrant group <group-name> <up|halt|destroy|provision>'
+          o.banner = 'Usage: vagrant group <group-name> <up|halt|destroy|provision|hosts>'
           o.separator ''
 
           o.on('-h', '--help', 'Print this help') do
@@ -21,15 +21,28 @@ module VagrantPlugins
 
         group, action = argv[0], argv[1]
 
-        if !group || !action || !['up', 'halt', 'destroy', 'provision'].include?(action)
+        if !group || !action || !['up', 'halt', 'destroy', 'provision', 'hosts'].include?(action)
           safe_puts(opts.help)
           return nil
         end
 
-        with_target_vms() do |machine|
-          if machine.config.group.groups.has_key?(group)
-            if machine.config.group.groups[group].include? machine.name.to_s
-              machine.action(action)
+        if action == 'hosts'
+          @env.ui.info(sprintf('Hosts in %s group:', group))
+
+          with_target_vms() do |machine|
+            if machine.config.group.groups.has_key?(group)
+              @env.ui.info(sprintf(' - %s', machine.name))
+            elsif
+              @env.ui.warn('No hosts associated.')
+              break
+            end
+          end
+        elsif
+          with_target_vms() do |machine|
+            if machine.config.group.groups.has_key?(group)
+              if machine.config.group.groups[group].include? machine.name.to_s
+                machine.action(action)
+              end
             end
           end
         end
