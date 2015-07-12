@@ -17,6 +17,11 @@ module VagrantPlugins
           o.on('-h', '--help', 'Print this help') do
             safe_puts(opts.help)
           end
+
+          o.on('-f', '--force', 'Do action (destroy, halt) without confirmation.') do
+            options[:force_confirm_destroy] = true
+            options[:force_halt]            = true
+          end
         end
 
         argv = parse_options(opts)
@@ -45,7 +50,7 @@ module VagrantPlugins
           with_target_vms() do |machine|
             if machine.config.group.groups.has_key?(group)
               if machine.config.group.groups[group].include? machine.name.to_s
-                machine.action(action)
+                machine.action(action, **options)
               end
             end
           end
