@@ -33,7 +33,9 @@ module VagrantPlugins
 
           with_target_vms() do |machine|
             if machine.config.group.groups.has_key?(group)
-              @env.ui.info(sprintf(' - %s', machine.name))
+              if machine.config.group.groups[group].to_a.include? machine.name.to_s
+                @env.ui.info(sprintf(' - %s', machine.name))
+              end
             elsif
               @env.ui.warn('No hosts associated.')
               break
