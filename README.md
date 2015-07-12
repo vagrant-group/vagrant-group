@@ -47,7 +47,7 @@ $ vagrant group databases halt
 ```
 
 At the moment you use commands `up`, `halt`, `provision` and `destroy`.  
-Parameters are not supported.
+Parameters are not supported except `--force` in `halt` and `destroy` commands.
 
 In order to list hosts associated to group issue below command:
 ```
