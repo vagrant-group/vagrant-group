@@ -2,6 +2,8 @@ module VagrantPlugins
   module Group
     class Command < Vagrant.plugin(2, :command)
 
+      COMMANDS = %w(up halt destroy provision hosts)
+
       def self.synopsis
         "runs vagrant command on specific group of VMs"
       end # self.synopsis
@@ -9,7 +11,7 @@ module VagrantPlugins
       def execute
         options = {}
         opts = OptionParser.new do |o|
-          o.banner = 'Usage: vagrant group <group-name> <up|halt|destroy|provision|hosts>'
+          o.banner = sprintf("Usage: vagrant group <group-name> <%s>", COMMANDS.join("|"))
           o.separator ''
 
           o.on('-h', '--help', 'Print this help') do
@@ -21,7 +23,7 @@ module VagrantPlugins
 
         group, action = argv[0], argv[1]
 
-        if !group || !action || !['up', 'halt', 'destroy', 'provision', 'hosts'].include?(action)
+        if !group || !action || !COMMANDS.include?(action)
           safe_puts(opts.help)
           return nil
         end
