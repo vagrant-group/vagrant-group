@@ -24,6 +24,10 @@ module VagrantPlugins
             options[:force_confirm_destroy] = true
             options[:force_halt]            = true
           end
+
+          o.on(nil, '--provision', 'Enable provisioning (up, reload).') do
+            options[:provision_ignore_sentinel] = true
+          end
         end
 
         argv = parse_options(opts)
