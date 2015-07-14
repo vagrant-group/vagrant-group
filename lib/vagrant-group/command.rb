@@ -9,7 +9,9 @@ module VagrantPlugins
       end # self.synopsis
       
       def execute
-        options = {}
+        options = {
+          :provision_ignore_sentinel => false, # otherwise reload command does provision
+        }
         opts = OptionParser.new do |o|
           o.banner = sprintf("Usage: vagrant group <group-name> <%s>", COMMANDS.join("|"))
           o.separator ''
