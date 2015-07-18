@@ -9,11 +9,25 @@ One host may belong to multiple groups.
 ## How to install
 
 ```sh
-vagrant plugin install vagrant-group
+$ vagrant plugin install vagrant-group
 ```
 
 ## How to configure
 
+You need to add definition of groups to your existing `Vagrantfile`:
+```ruby
+config.group.groups = {
+  "group-name-1" => [
+    "vm-1", "vm-2",
+  ],
+  "group-name-2" => [
+    "vm-3",
+    "vm-4"
+  ],
+}
+```
+
+For example it may look like that:
 ```ruby
 Vagrant.configure("2") do |config|
   config.vm.define "web1" do |web|
@@ -33,31 +47,82 @@ Vagrant.configure("2") do |config|
   end
 
   config.group.groups = {
-    "webservers" => [ "web1", "web2" ],
-    "databases"  => [ "db1", "db2" ]
+    "webservers" => [
+      "web1",
+      "web2",
+    ],
+    "databases" => [
+      "db1",
+      "db2",
+    ],
   }
 end
 ```
 
 ## How to use
 
-```sh
-$ vagrant group up webservers
-$ vagrant group halt databases
+If you forgot how to use `vagrant-group` just issue below command:
+```
+$ vagrant group
 ```
 
-At the moment you use commands `up`, `halt`, `provision`, `reload`, `suspend`, `resume` and `destroy`.  
-Parameters are not supported except `--force` in `halt` and `destroy` commands.
-
-In order to list hosts associated to group issue below command:
+Start VMs:
 ```
-$ vagrant group hosts webservers
+$ vagrant group up <group-name>
 ```
 
-## Contributing
+Start VMs with forced provisioning:
+```
+$ vagrant group up <group-name> --provision
+```
 
-1. Fork it ( https://github.com/krzysztof-magosa/vagrant-group/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+Shut down VMs:
+```
+$ vagrant group halt <group-name>
+```
+
+Forced shut down of VMs (equivalent of pulling power):
+```
+$ vagrant group halt <group-name> --force
+```
+
+Destroy VMs:
+```
+$ vagrant group destroy <group-name>
+```
+
+Destroy VMs without asking:
+```
+$ vagrant group destroy <group-name> --force
+```
+
+Provision VMs:
+```
+$ vagrant group provision <group-name>
+```
+
+Reload VMs:
+```
+$ vagrant group reload <group-name>
+```
+
+Reload VMs with forced provisioning:
+```
+$ vagrant group reload <group-name> --provision
+```
+
+Suspend VMs:
+```
+$ vagrant group suspend <group-name>
+```
+
+Resume suspended VMs:
+```
+$ vagrant group resume <group-name>
+```
+
+List hosts associated to specific group:
+```
+$ vagrant group hosts <group-name>
+```
+
