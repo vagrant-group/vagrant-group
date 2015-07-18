@@ -2,9 +2,11 @@
 
 [![Gem Version](https://badge.fury.io/rb/vagrant-group.svg)](http://badge.fury.io/rb/vagrant-group)
 
-With this plugin you can associate VMs to groups and then perform
-basic operations like up/halt/provision/destroy/reload on specific group.
-One host may belong to multiple groups.
+This plugin makes your life easier when it comes to maintain big development environments based on Vagrant.
+You can associate each VM to multiple groups, e.g. based on role (webserver, database) or project they belong to.
+Then with one simple command you can run basic commands on entire group.  
+
+For big configuration you may be also interested in [vagrant-dotvm plugin](https://github.com/krzysztof-magosa/vagrant-dotvm).
 
 ## How to install
 
