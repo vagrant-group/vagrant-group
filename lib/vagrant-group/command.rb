@@ -13,7 +13,7 @@ module VagrantPlugins
           :provision_ignore_sentinel => false, # otherwise reload command does provision
         }
         opts = OptionParser.new do |o|
-          o.banner = sprintf("Usage: vagrant group <group-name> <%s>", COMMANDS.join("|"))
+          o.banner = sprintf("Usage: vagrant group <%s> <group-name>", COMMANDS.join("|"))
           o.separator ''
 
           o.on('-h', '--help', 'Print this help') do
@@ -32,7 +32,7 @@ module VagrantPlugins
 
         argv = parse_options(opts)
 
-        group, action = argv[0], argv[1]
+        action, group = argv[0], argv[1]
 
         if !group || !action || !COMMANDS.include?(action)
           safe_puts(opts.help)

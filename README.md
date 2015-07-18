@@ -42,16 +42,16 @@ end
 ## How to use
 
 ```sh
-$ vagrant group webservers up
-$ vagrant group databases halt
+$ vagrant group up webservers
+$ vagrant group halt databases
 ```
 
-At the moment you use commands `up`, `halt`, `provision`, `reload` and `destroy`.  
+At the moment you use commands `up`, `halt`, `provision`, `reload`, `suspend`, `resumt` and `destroy`.  
 Parameters are not supported except `--force` in `halt` and `destroy` commands.
 
 In order to list hosts associated to group issue below command:
 ```
-$ vagrant group webservers hosts
+$ vagrant group hosts webservers
 ```
 
 ## Contributing
