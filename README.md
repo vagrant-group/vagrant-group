@@ -25,7 +25,7 @@ config.group.groups = {
   ],
   "group-name-2" => [
     "vm-3",
-    "vm-4"
+    "vm-4",
   ],
 }
 ```
