@@ -20,7 +20,8 @@ You need to add definition of groups to your existing `Vagrantfile`:
 ```ruby
 config.group.groups = {
   "group-name-1" => [
-    "vm-1", "vm-2",
+    "vm-1",
+    "vm-2",
   ],
   "group-name-2" => [
     "vm-3",
