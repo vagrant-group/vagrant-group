@@ -41,28 +41,36 @@ module VagrantPlugins
         end
 
         if action == 'hosts'
-          @env.ui.info(sprintf('Hosts in %s group:', group))
-
-          with_target_vms() do |machine|
-            if machine.config.group.groups.has_key?(group)
-              if machine.config.group.groups[group].to_a.include? machine.name.to_s
-                @env.ui.info(sprintf(' - %s', machine.name))
-              end
-            elsif
-              @env.ui.warn('No hosts associated.')
-              break
-            end
-          end
+          print_hosts(group)
         elsif
-          with_target_vms() do |machine|
-            if machine.config.group.groups.has_key?(group)
-              if machine.config.group.groups[group].include? machine.name.to_s
-                machine.action(action, **options)
-              end
+          do_action(action, options, group)
+        end
+      end # execute
+
+      def print_hosts(group)
+        @env.ui.info(sprintf('Hosts in %s group:', group))
+
+        with_target_vms() do |machine|
+          if machine.config.group.groups.has_key?(group)
+            if machine.config.group.groups[group].to_a.include? machine.name.to_s
+              @env.ui.info(sprintf(' - %s', machine.name))
+            end
+          elsif
+            @env.ui.warn('No hosts associated.')
+            break
+          end
+        end
+      end # print_hosts
+
+      def do_action(action, options, group)
+        with_target_vms() do |machine|
+          if machine.config.group.groups.has_key?(group)
+            if machine.config.group.groups[group].include? machine.name.to_s
+              machine.action(action, **options)
             end
           end
         end
-      end # execute
+      end # do_action
 
     end # Command
   end # Group
