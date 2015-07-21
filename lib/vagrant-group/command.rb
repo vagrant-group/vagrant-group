@@ -18,6 +18,7 @@ module VagrantPlugins
 
           o.on('-h', '--help', 'Print this help') do
             safe_puts(opts.help)
+            return nil
           end
 
           o.on('-f', '--force', 'Do action (destroy, halt) without confirmation.') do
