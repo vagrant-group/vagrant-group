@@ -42,7 +42,7 @@ module VagrantPlugins
 
         groups = find_groups(pattern)
         if groups.length == 0
-          @env.ui.error('No groups matched the regular expression given.')
+          @env.ui.error('No groups matched the pattern given.')
           return nil
         end
 
