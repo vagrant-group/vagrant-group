@@ -7,7 +7,7 @@ module VagrantPlugins
       def self.synopsis
         "runs vagrant command on specific group of VMs"
       end # self.synopsis
-      
+
       def execute
         options = {
           :provision_ignore_sentinel => false, # otherwise reload command does provision
@@ -63,7 +63,7 @@ module VagrantPlugins
           end
         end
       end # execute
-      
+
     end # Command
   end # Group
 end # VagrantPlugins
