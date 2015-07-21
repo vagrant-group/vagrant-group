@@ -33,17 +33,27 @@ module VagrantPlugins
 
         argv = parse_options(opts)
 
-        action, group = argv[0], argv[1]
+        action, pattern = argv[0], argv[1]
 
-        if !group || !action || !COMMANDS.include?(action)
+        if !pattern || !action || !COMMANDS.include?(action)
           safe_puts(opts.help)
           return nil
         end
 
+        groups = find_groups(pattern)
+        if groups.length == 0
+          @env.ui.error('No groups matched the regular expression given.')
+          return nil
+        end
+
         if action == 'hosts'
-          print_hosts(group)
+          groups.each do |group|
+            print_hosts(group)
+          end
         elsif
-          do_action(action, options, group)
+          groups.each do |group|
+            do_action(action, options, group)
+          end
         end
       end # execute
 
@@ -72,6 +82,34 @@ module VagrantPlugins
         end
       end # do_action
 
+      def all_groups
+        groups = Set.new
+
+        with_target_vms() do |machine|
+          machine.config.group.groups.to_h.each do |group_name, hosts|
+            groups << group_name
+          end
+        end
+
+        return groups.to_a
+      end # all_groups
+
+      def find_groups(pattern)
+        groups = []
+
+        if pattern[0] == "/" && pattern[-1] == "/"
+          reg = Regexp.new(pattern[1..-2])
+          all_groups.each do |item|
+            groups << item if item.match(reg)
+          end
+        else
+          all_groups.each do |item|
+            groups << item if item == pattern
+          end
+        end
+
+        groups
+      end # find_groups
     end # Command
   end # Group
 end # VagrantPlugins
