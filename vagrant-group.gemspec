@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["krzysztof@magosa.pl"]
   spec.summary       = "Plugin allows to create groups of hosts and perform basic commands on them."
 #  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/vagrant-group/vagrant-group"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
