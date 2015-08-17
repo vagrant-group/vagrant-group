@@ -14,7 +14,7 @@ module VagrantPlugins
         require_relative 'config'
         Config
       end
-      
+
     end # Plugin
   end # Group
 end # VagrantPlugins

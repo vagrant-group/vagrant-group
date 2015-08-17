@@ -11,7 +11,7 @@ module VagrantPlugins
       def finalize!
         @groups = {} if @groups == UNSET_VALUE
       end
-      
+
     end # Config
   end # Group
 end # VagrantPlugins
