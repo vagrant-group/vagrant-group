@@ -5,7 +5,7 @@ module VagrantPlugins
       COMMANDS = %w(up halt destroy provision reload hosts suspend resume)
 
       def self.synopsis
-        "runs vagrant command on specific group of VMs"
+        'runs vagrant command on specific group of VMs'
       end # self.synopsis
 
       def execute
@@ -13,7 +13,7 @@ module VagrantPlugins
           :provision_ignore_sentinel => false, # otherwise reload command does provision
         }
         opts = OptionParser.new do |o|
-          o.banner = sprintf("Usage: vagrant group <%s> <group-name>", COMMANDS.join("|"))
+          o.banner = sprintf('Usage: vagrant group <%s> <group-name>', COMMANDS.join('|'))
           o.separator ''
 
           o.on('-h', '--help', 'Print this help') do
@@ -97,7 +97,7 @@ module VagrantPlugins
       def find_groups(pattern)
         groups = []
 
-        if pattern[0] == "/" && pattern[-1] == "/"
+        if pattern[0] == '/' && pattern[-1] == '/'
           reg = Regexp.new(pattern[1..-2])
           all_groups.each do |item|
             groups << item if item.match(reg)
