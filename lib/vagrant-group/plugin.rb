@@ -1,7 +1,6 @@
 module VagrantPlugins
   module Group
     class Plugin < Vagrant.plugin(2)
-
       name 'vagrant-vm-group'
       description 'Plugin allows to group VMs'
 
@@ -14,7 +13,6 @@ module VagrantPlugins
         require_relative 'config'
         Config
       end
-
     end # Plugin
   end # Group
 end # VagrantPlugins

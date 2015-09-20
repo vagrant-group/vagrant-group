@@ -33,7 +33,8 @@ module VagrantPlugins
 
         argv = parse_options(opts)
 
-        action, pattern = argv[0], argv[1]
+        action = argv[0]
+        pattern = argv[1]
 
         if !pattern || !action || !COMMANDS.include?(action)
           safe_puts(opts.help)
@@ -58,12 +59,12 @@ module VagrantPlugins
       end # execute
 
       def print_hosts(group)
-        @env.ui.info(sprintf('Hosts in %s group:', group))
+        @env.ui.info("Hosts in #{group} group:")
 
-        with_target_vms() do |machine|
-          if machine.config.group.groups.has_key?(group)
+        with_target_vms do |machine|
+          if machine.config.group.groups.key?(group)
             if machine.config.group.groups[group].to_a.include? machine.name.to_s
-              @env.ui.info(sprintf(' - %s', machine.name))
+              @env.ui.info(" - #{machine.name}")
             end
           elsif
             @env.ui.warn('No hosts associated.')
@@ -73,8 +74,8 @@ module VagrantPlugins
       end # print_hosts
 
       def do_action(action, options, group)
-        with_target_vms() do |machine|
-          if machine.config.group.groups.has_key?(group)
+        with_target_vms do |machine|
+          if machine.config.group.groups.key?(group)
             if machine.config.group.groups[group].include? machine.name.to_s
               machine.action(action, **options)
             end
@@ -85,13 +86,13 @@ module VagrantPlugins
       def all_groups
         groups = Set.new
 
-        with_target_vms() do |machine|
-          machine.config.group.groups.to_h.each do |group_name, hosts|
+        with_target_vms do |machine|
+          machine.config.group.groups.to_h.each do |group_name, _hosts|
             groups << group_name
           end
         end
 
-        return groups.to_a
+        groups.to_a
       end # all_groups
 
       def find_groups(pattern)
