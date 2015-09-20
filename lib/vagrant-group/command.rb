@@ -51,7 +51,7 @@ module VagrantPlugins
           groups.each do |group|
             print_hosts(group)
           end
-        elsif
+        else
           groups.each do |group|
             do_action(action, options, group)
           end
@@ -66,7 +66,7 @@ module VagrantPlugins
             if machine.config.group.groups[group].to_a.include? machine.name.to_s
               @env.ui.info(" - #{machine.name}")
             end
-          elsif
+          else
             @env.ui.warn('No hosts associated.')
             break
           end
