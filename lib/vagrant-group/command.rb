@@ -34,14 +34,14 @@ module VagrantPlugins
         argv = parse_options(opts)
 
         action = argv[0]
-        pattern = argv[1]
+        patterns = argv[1]
 
-        if !pattern || !action || !COMMANDS.include?(action)
+        if !patterns || !action || !COMMANDS.include?(action)
           safe_puts(opts.help)
           return nil
         end
 
-        groups = find_groups(pattern)
+        groups = find_groups(patterns.split(","))
         if groups.length == 0
           @env.ui.error('No groups matched the pattern given.')
           return nil
@@ -95,21 +95,23 @@ module VagrantPlugins
         groups.to_a
       end # all_groups
 
-      def find_groups(pattern)
+      def find_groups(patterns)
         groups = []
 
-        if pattern[0] == '/' && pattern[-1] == '/'
-          reg = Regexp.new(pattern[1..-2])
-          all_groups.each do |item|
-            groups << item if item.match(reg)
-          end
-        else
-          all_groups.each do |item|
-            groups << item if item == pattern
+        patterns.each do |pattern|
+          if pattern[0] == '/' && pattern[-1] == '/'
+            reg = Regexp.new(pattern[1..-2])
+            all_groups.each do |item|
+              groups << item if item.match(reg)
+            end
+          else
+            all_groups.each do |item|
+              groups << item if item == pattern
+            end
           end
         end
 
-        groups
+        groups.uniq
       end # find_groups
     end # Command
   end # Group
