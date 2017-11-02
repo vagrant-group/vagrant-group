@@ -41,10 +41,14 @@ module VagrantPlugins
           return nil
         end
 
-        groups = find_groups(patterns.split(","))
-        if groups.length == 0
-          @env.ui.error('No groups matched the pattern given.')
-          return nil
+        unless action == 'list' && !patterns
+          groups = find_groups(patterns.split(","))
+          if groups.length == 0
+            @env.ui.error('No groups matched the pattern given.')
+            return nil
+          end
+        else
+          groups = all_groups.split(",")
         end
 
         if action == 'list'
