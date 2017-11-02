@@ -47,7 +47,9 @@ module VagrantPlugins
           return nil
         end
 
-        if action == 'hosts'
+        if action == 'list'
+          puts groups
+        elsif action == 'hosts'
           groups.each do |group|
             print_hosts(group)
           end
