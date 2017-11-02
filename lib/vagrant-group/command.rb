@@ -2,7 +2,7 @@ module VagrantPlugins
   module Group
     class Command < Vagrant.plugin(2, :command)
 
-      COMMANDS = %w(up halt destroy provision reload hosts suspend resume)
+      COMMANDS = %w(up halt destroy provision reload hosts suspend resume list)
 
       def self.synopsis
         'runs vagrant command on specific group of VMs'
