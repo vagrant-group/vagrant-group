@@ -2,7 +2,7 @@ module VagrantPlugins
   module Group
     class Command < Vagrant.plugin(2, :command)
 
-      COMMANDS = %w(up halt destroy provision reload hosts suspend resume)
+      COMMANDS = %w(up halt destroy provision reload hosts suspend resume list)
 
       def self.synopsis
         'runs vagrant command on specific group of VMs'
@@ -36,18 +36,24 @@ module VagrantPlugins
         action = argv[0]
         patterns = argv[1]
 
-        if !patterns || !action || !COMMANDS.include?(action)
+        if (!patterns && action != 'list') || !action || !COMMANDS.include?(action)
           safe_puts(opts.help)
           return nil
         end
 
-        groups = find_groups(patterns.split(","))
-        if groups.length == 0
-          @env.ui.error('No groups matched the pattern given.')
-          return nil
+        unless action == 'list' && !patterns
+          groups = find_groups(patterns.split(","))
+          if groups.length == 0
+            @env.ui.error('No groups matched the pattern given.')
+            return nil
+          end
+        else
+          groups = all_groups.split(",")
         end
 
-        if action == 'hosts'
+        if action == 'list'
+          puts groups
+        elsif action == 'hosts'
           groups.each do |group|
             print_hosts(group)
           end
