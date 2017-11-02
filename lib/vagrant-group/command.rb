@@ -36,7 +36,7 @@ module VagrantPlugins
         action = argv[0]
         patterns = argv[1]
 
-        if !patterns || !action || !COMMANDS.include?(action)
+        if (!patterns && action != 'list') || !action || !COMMANDS.include?(action)
           safe_puts(opts.help)
           return nil
         end
