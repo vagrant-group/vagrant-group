@@ -129,3 +129,9 @@ List hosts associated to specific group:
 $ vagrant group hosts <group-name>
 ```
 
+List groups:
+```
+$ vagrant group list [<group-name>]
+```
+> If group name is omitted, show all groups
+
